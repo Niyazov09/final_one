@@ -1,46 +1,19 @@
-from django.contrib import admin
-from django.urls import path, include
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views import home
-
+from django.urls import path
 from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views import ProjectViewSet, TaskViewSet, CommentViewSet
 
+# 1. Создаем роутер для ViewSets
 router = DefaultRouter()
-router.register("projects", ProjectViewSet)
-router.register("tasks", TaskViewSet)
-router.register("comments", CommentViewSet)
+router.register("projects", ProjectViewSet, basename="projects")
+router.register("tasks", TaskViewSet, basename="tasks")
+router.register("comments", CommentViewSet, basename="comments")
 
+# 2. Объявляем базовые пути (например, для JWT-токенов)
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
-    path('api/', include(router.urls)),
-
-    path('api/token/', TokenObtainPairView.as_view()),
-    path('api/token/refresh/', TokenRefreshView.as_view()),
-
-    path('', home),
+    path("token/", TokenObtainPairView.as_view(), name="token"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
-
-from rest_framework.routers import DefaultRouter
-from .views import ProjectViewSet, TaskViewSet, CommentViewSet
-
-router = DefaultRouter()
-router.register("projects", ProjectViewSet)
-router.register("tasks", TaskViewSet)
-router.register("comments", CommentViewSet)
-
-urlpatterns = router.urls
-
-
-
-from rest_framework.routers import DefaultRouter
-from .views import ProjectViewSet, TaskViewSet, CommentViewSet
-
-router = DefaultRouter()
-router.register("projects", ProjectViewSet)
-router.register("tasks", TaskViewSet)
-router.register("comments", CommentViewSet)
-
-urlpatterns = router.urls
+# 3. Добавляем к общему списку пути из роутера
+urlpatterns += router.urls

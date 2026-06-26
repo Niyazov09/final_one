@@ -8,6 +8,8 @@ from .models import (
     Comment
 )
 
+
+
 admin.site.register(Project)
 admin.site.register(Task)
 admin.site.register(Comment)
