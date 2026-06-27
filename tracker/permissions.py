@@ -1,40 +1,40 @@
-# from rest_framework.permissions import BasePermission
+from rest_framework.permissions import BasePermission
 
 
-# class IsProjectOwner(BasePermission):
-#     """
-#     Только владелец проекта.
-#     """
+class IsProjectOwner(BasePermission):
+    """
+    Только владелец проекта.
+    """
 
-#     def has_object_permission(self, request, view, obj):
-#         return obj.owner == request.user
-
-
-# class IsProjectMember(BasePermission):
-#     """
-#     Владелец или участник проекта.
-#     """
-
-#     def has_object_permission(self, request, view, obj):
-#         return obj.is_member(request.user)
+    def has_object_permission(self, request, view, obj):
+        return obj.owner == request.user
 
 
-# class IsTaskProjectMember(BasePermission):
-#     """
-#     Доступ к задаче только участникам проекта.
-#     """
+class IsProjectMember(BasePermission):
+    """
+    Владелец или участник проекта.
+    """
 
-#     def has_object_permission(self, request, view, obj):
-#         return obj.project.is_member(request.user)
+    def has_object_permission(self, request, view, obj):
+        return obj.is_member(request.user)
 
 
-# class IsCommentProjectMember(BasePermission):
-#     """
-#     Доступ к комментариям только участникам проекта.
-#     """
+class IsTaskProjectMember(BasePermission):
+    """
+    Доступ к задаче только участникам проекта.
+    """
 
-#     def has_object_permission(self, request, view, obj):
-#         return obj.task.project.is_member(request.user)
+    def has_object_permission(self, request, view, obj):
+        return obj.project.is_member(request.user)
+
+
+class IsCommentProjectMember(BasePermission):
+    """
+    Доступ к комментариям только участникам проекта.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        return obj.task.project.is_member(request.user)
 
 
 from rest_framework.permissions import BasePermission

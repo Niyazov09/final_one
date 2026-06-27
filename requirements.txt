@@ -1,3 +1,10 @@
+# Django>=6.0
+# djangorestframework
+# psycopg2-binary
+# drf-spectacular
+# django-filter
+# djangorestframework-simplejwt
+
 Django>=6.0
 djangorestframework
 psycopg2-binary
